@@ -16,12 +16,16 @@ def stock_data(stock, begin_date, end_date):
     '''Retrieve opening and closing prices from Yahoo Finance'''
     df = yf.download(tickers = stock, period='1d', start = begin_date, end = end_date)
     df = df[['Open', 'Close']]
+    df.reset_index(inplace=True)
     return df
 
 def make_calendar(begin_date, end_date):
     '''Create calendar for Monday open and Friday close prices'''
-    calendar = nyse.schedule(start_date = begin_date, end_date = end_date)
-    return calendar
+    df = nyse.schedule(start_date = begin_date, end_date = end_date)
+    df.reset_index(inplace=True)
+    df.rename(columns = {'index':'Date'}, inplace = True)
+    df = df['Date']
+    return df
 
 
 ######################
@@ -32,7 +36,7 @@ def make_calendar(begin_date, end_date):
 tickerSymbol = 'MSFT'
 
 #How far back to look for data
-days = 31
+days = 7
 
 #Create a calendar
 nyse = mcal.get_calendar('NYSE')
