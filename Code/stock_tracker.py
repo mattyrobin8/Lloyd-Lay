@@ -28,13 +28,18 @@ def make_calendar(begin_date, end_date):
     df = df[(df['Day'] == 'Monday') | (df['Day'] == 'Friday')]
     return df[['Date', 'Day']]
 
+def merge_data(df1, df2):
+    '''Merge stock and calendar data'''
+    df = pd.merge(df1, df2, how="inner", on='Date', suffixes=("_orig", "_match"))
+    return df
+
 
 ######################
 ####Create objects####
 ######################
 
 #Define the ticker symbol
-tickerSymbol = 'MSFT'
+tickerSymbol = 'MSFT GOOG'
 
 #How far back to look for data
 days = 31
@@ -58,7 +63,7 @@ def main():
     print(calendar_df)
 
     #Merge stock and calendar
-    stock_calendar_df = pd.merge(stock_df, calendar_df, how="inner", on='Date', suffixes=("_orig", "_match"))
+    stock_calendar_df = merge_data(stock_df, calendar_df)
     print(stock_calendar_df)
 
 #Run Main script and record runtime
