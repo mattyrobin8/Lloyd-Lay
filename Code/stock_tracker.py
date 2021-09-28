@@ -30,7 +30,7 @@ def make_calendar(begin_date, end_date):
 
 def merge_data(df1, df2):
     '''Merge stock and calendar data'''
-    df = pd.merge(df1, df2, how="inner", on='Date', suffixes=("_orig", "_match"))
+    df = pd.merge(df1, df2, how="inner", on='Date')
     return df
 
 
