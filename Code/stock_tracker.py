@@ -4,7 +4,7 @@
 
 import yfinance as yf
 import pandas_market_calendars as mcal
-from datetime import date
+from datetime import date, timedelta
 import time
 
 
@@ -12,14 +12,14 @@ import time
 ###Define Functions###
 ######################
 
-def stock_data(stock):
+def stock_data(stock, begin_date, end_date):
     '''Retrieve Stock data from Yahoo Finance'''
-    tickerDf = yf.download(tickers = stock, period='1d', start='2010-1-1', end='2020-1-25')
+    tickerDf = yf.download(tickers = stock, period='1d', start = begin_date, end = end_date)
     return tickerDf
 
-def make_calendar():
+def make_calendar(begin_date, end_date):
     '''Create calendar for Monday open and Friday close prices'''
-    calendar = nyse.schedule(start_date='2012-07-01', end_date='2012-07-10')
+    calendar = nyse.schedule(start_date = begin_date, end_date = end_date)
     return calendar
 
 
@@ -33,8 +33,8 @@ tickerSymbol = 'MSFT'
 #Create a calendar
 nyse = mcal.get_calendar('NYSE')
 
-#Find Today's date and place in mm/dd/yyyy format
-today = date.today().strftime("%m/%d/%Y")
+#How far back to look for data
+days = 31
 
 
 #####################
@@ -44,10 +44,10 @@ today = date.today().strftime("%m/%d/%Y")
 def main():
 
     #Import Data
-    stock_df = stock_data(tickerSymbol)
+    stock_df = stock_data(tickerSymbol, date.today() - timedelta(days), date.today())
     print(stock_df)
 
-    calendar_df = make_calendar()
+    calendar_df = make_calendar(date.today() - timedelta(days), date.today())
     print(calendar_df)
 
 
