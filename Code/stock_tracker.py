@@ -4,6 +4,7 @@
 
 import yfinance as yf
 import pandas_market_calendars as mcal
+from datetime import date
 import time
 
 
@@ -26,11 +27,14 @@ def make_calendar():
 ####Create objects####
 ######################
 
-#define the ticker symbol
+#Define the ticker symbol
 tickerSymbol = 'MSFT'
 
-# Create a calendar
+#Create a calendar
 nyse = mcal.get_calendar('NYSE')
+
+#Find Today's date and place in mm/dd/yyyy format
+today = date.today().strftime("%m/%d/%Y")
 
 
 #####################
