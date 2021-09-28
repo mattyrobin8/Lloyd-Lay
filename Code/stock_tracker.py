@@ -3,6 +3,7 @@
 ######################
 
 import yfinance as yf
+import pandas as pd
 import pandas_market_calendars as mcal
 from datetime import date, timedelta
 import time
@@ -48,13 +49,17 @@ nyse = mcal.get_calendar('NYSE')
 
 def main():
 
-    #Import Data
+    #Import stock
     stock_df = stock_data(tickerSymbol, date.today() - timedelta(days), date.today())
     print(stock_df)
 
+    #Import calendar
     calendar_df = make_calendar(date.today() - timedelta(days), date.today())
     print(calendar_df)
 
+    #Merge stock and calendar
+    stock_calendar_df = pd.merge(stock_df, calendar_df, how="inner", on='Date', suffixes=("_orig", "_match"))
+    print(stock_calendar_df)
 
 #Run Main script and record runtime
 if __name__ == '__main__':
