@@ -30,11 +30,11 @@ def make_calendar(begin_date, end_date):
 #Define the ticker symbol
 tickerSymbol = 'MSFT'
 
-#Create a calendar
-nyse = mcal.get_calendar('NYSE')
-
 #How far back to look for data
 days = 31
+
+#Create a calendar
+nyse = mcal.get_calendar('NYSE')
 
 
 #####################
