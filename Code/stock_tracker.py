@@ -13,9 +13,10 @@ import time
 ######################
 
 def stock_data(stock, begin_date, end_date):
-    '''Retrieve Stock data from Yahoo Finance'''
-    tickerDf = yf.download(tickers = stock, period='1d', start = begin_date, end = end_date)
-    return tickerDf
+    '''Retrieve opening and closing prices from Yahoo Finance'''
+    df = yf.download(tickers = stock, period='1d', start = begin_date, end = end_date)
+    df = df[['Open', 'Close']]
+    return df
 
 def make_calendar(begin_date, end_date):
     '''Create calendar for Monday open and Friday close prices'''
