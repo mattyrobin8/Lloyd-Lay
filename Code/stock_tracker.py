@@ -3,6 +3,7 @@
 ######################
 
 import yfinance as yf
+import pandas_market_calendars as mcal
 import time
 
 
@@ -21,7 +22,12 @@ def stock_data(stock):
 ######################
 
 #define the ticker symbol
-tickerSymbol = 'GRMN GWRE HUBS ICE IDXX IFNNY'
+tickerSymbol = 'MSFT'
+
+# Create a calendar
+nyse = mcal.get_calendar('NYSE')
+
+calendar = nyse.schedule(start_date='2012-07-01', end_date='2012-07-10')
 
 
 #####################
