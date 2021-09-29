@@ -48,6 +48,9 @@ days = 31
 #Create a calendar
 nyse = mcal.get_calendar('NYSE')
 
+#Export Files
+export_file = r"C:\Users\matty\OneDrive\Work\Lloyd-Lay\Output\stocks.csv"
+
 
 #####################
 ####Run Functions####
@@ -69,8 +72,9 @@ def main():
     opening_calendar_df = merge_data(opening_stock_df, monday_df)
     closing_calendar_df = merge_data(closing_stock_df, friday_df)
 
-    final_df = opening_calendar_df.append(closing_calendar_df).set_index('Date').sort_values('Date').transpose()
-    print(final_df)
+    #Append closoing dataframe to opening dataframe, then reset index, sort values, transpose, and round the prices to 2 decimals
+    final_df = opening_calendar_df.append(closing_calendar_df).set_index('Date').sort_values('Date').transpose().round(2)
+    final_df.to_csv(export_file)
 
 #Run Main script and record runtime
 if __name__ == '__main__':
