@@ -40,10 +40,10 @@ def merge_data(df1, df2):
 ######################
 
 #Define the ticker symbol
-tickerSymbol = 'MSFT GOOG'
+tickerSymbol = 'LMT BA NOC GD RTX LDOS BAESY HII CW HEI AXON AVAV'
 
 #How far back to look for data
-days = 31
+days = 365
 
 #Create a calendar
 nyse = mcal.get_calendar('NYSE')
