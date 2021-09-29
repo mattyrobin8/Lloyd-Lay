@@ -32,7 +32,7 @@ def make_calendar(begin_date, end_date):
 def merge_data(df1, df2):
     '''Merge stock and calendar data'''
     df = pd.merge(df1, df2, how="inner", on='Date')
-    return df
+    return df.drop(columns=['Day'], axis=1)
 
 
 ######################
@@ -57,13 +57,13 @@ def main():
 
     #Import stock
     opening_stock_df, closing_stock_df = stock_data(tickerSymbol, date.today() - timedelta(days), date.today())
-    print(opening_stock_df)
-    print(closing_stock_df)
+
+    #Flatten the 2-level columns to 1-level
+    for df in (opening_stock_df,closing_stock_df):
+        df.columns = [f'{j}' if j != '' else f'{i}' for i,j in df.columns]
 
     #Import calendar
     monday_df, friday_df = make_calendar(date.today() - timedelta(days), date.today())
-    print(monday_df)
-    print(friday_df)
 
     #Merge stock and calendar
     opening_calendar_df = merge_data(opening_stock_df, monday_df)
