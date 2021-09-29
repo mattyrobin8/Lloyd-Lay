@@ -65,11 +65,11 @@ def main():
     #Import calendar
     monday_df, friday_df = make_calendar(date.today() - timedelta(days), date.today())
 
-    #Merge stock and calendar
+    #Merge stock and calendar for opening and closing prices
     opening_calendar_df = merge_data(opening_stock_df, monday_df)
     closing_calendar_df = merge_data(closing_stock_df, friday_df)
 
-    final_df = opening_calendar_df.append(closing_calendar_df).sort_values('Date')
+    final_df = opening_calendar_df.append(closing_calendar_df).set_index('Date').sort_values('Date').transpose()
     print(final_df)
 
 #Run Main script and record runtime
