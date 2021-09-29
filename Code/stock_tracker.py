@@ -49,7 +49,7 @@ days = 365
 nyse = mcal.get_calendar('NYSE')
 
 #Export Files
-export_file = r"C:\Users\matty\OneDrive\Work\Lloyd-Lay\Output\stocks.csv"
+export_file = r"C:\Users\matty\OneDrive\Work\Lloyd-Lay\Output\stocks.xlsx"
 
 
 #####################
@@ -74,7 +74,7 @@ def main():
 
     #Append closoing dataframe to opening dataframe, then reset index, sort values, transpose, and round the prices to 2 decimals
     final_df = opening_calendar_df.append(closing_calendar_df).set_index('Date').sort_values('Date').transpose().round(2)
-    final_df.to_csv(export_file)
+    final_df.to_excel(export_file)
 
 #Run Main script and record runtime
 if __name__ == '__main__':
