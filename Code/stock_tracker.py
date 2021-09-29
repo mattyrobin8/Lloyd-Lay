@@ -36,7 +36,7 @@ def merge_data(df1, df2):
 
 
 ######################
-####Create objects####
+####Create Objects####
 ######################
 
 #Define the ticker symbol
@@ -50,7 +50,7 @@ nyse = mcal.get_calendar('NYSE')
 
 
 #####################
-####Run functions####
+####Run Functions####
 #####################
 
 def main():
@@ -68,8 +68,9 @@ def main():
     #Merge stock and calendar
     opening_calendar_df = merge_data(opening_stock_df, monday_df)
     closing_calendar_df = merge_data(closing_stock_df, friday_df)
-    print(opening_calendar_df)
-    print(closing_calendar_df)
+
+    final_df = opening_calendar_df.append(closing_calendar_df).sort_values('Date')
+    print(final_df)
 
 #Run Main script and record runtime
 if __name__ == '__main__':
